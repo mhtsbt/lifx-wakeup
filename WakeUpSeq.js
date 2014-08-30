@@ -19,12 +19,22 @@ lx.on('bulb', function(b) {
 
 });
 
+// on shutdown close the connection
+process.on('SIGINT', function() {
+
+    console.log("Caught interrupt signal");
+    lx.lightsOff();
+    lx.close();
+    process.exit();
+
+});
+
 
 var _counter = function() {
 
 
 	setTimeout(function() {
-		lightLevel += 10;
+		lightLevel += 5;
 
 		console.log(lightLevel);
 		_setLight(lightLevel);
@@ -35,7 +45,7 @@ var _counter = function() {
 			_shutdown();
 		}
 
-	}, 120000);
+	}, 60000);
 	 
 };
 
@@ -50,6 +60,7 @@ var _setLight = function(value) {
 var _shutdown = function() {
 
 	setTimeout(function() {
+		lx.lightsOff();
 		console.log("seq ended!");
 		lx.close();
 		process.stdin.pause();
