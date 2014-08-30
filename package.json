@@ -1,0 +1,24 @@
+{
+  "name": "lifx-wakeup",
+  "version": "0.0.0",
+  "description": "lifx-wakeup ===========",
+  "main": "WakeUpSeq.js",
+  "dependencies": {
+    "lifx": "^0.2.1",
+    "packet": "^0.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matthiashutsebaut/lifx-wakeup.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matthiashutsebaut/lifx-wakeup/issues"
+  },
+  "homepage": "https://github.com/matthiashutsebaut/lifx-wakeup"
+}
