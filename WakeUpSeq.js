@@ -19,17 +19,6 @@ lx.on('bulb', function(b) {
 
 });
 
-// on shutdown close the connection
-process.on('SIGINT', function() {
-
-    console.log("Caught interrupt signal");
-    lx.lightsOff();
-    lx.close();
-    process.exit();
-
-});
-
-
 var _counter = function() {
 
 
@@ -40,12 +29,29 @@ var _counter = function() {
 		_setLight(lightLevel);
 
 		if (lightLevel != 100) {
+
 			_counter();
+
 		} else {
-			_shutdown();
+			
+			// shutdown sequence
+			setTimeout(function() {
+
+				lx.lightsOff();
+				console.log("seq ended!");
+
+			}, 600000);
+
+			// shutdown sequence
+			setTimeout(function() {
+
+				lx.close();
+
+			}, 601000);
+
 		}
 
-	}, 60000);
+	}, 600);
 	 
 };
 
@@ -54,16 +60,5 @@ var _setLight = function(value) {
 
 	var rounded = Math.round(65535*(value/100));
 	lx.lightsColour(0x0000, 0x0000, rounded, 0x0af0, 0x0513);
-
-};
-
-var _shutdown = function() {
-
-	setTimeout(function() {
-		lx.lightsOff();
-		console.log("seq ended!");
-		lx.close();
-		process.stdin.pause();
-	}, 600000);
 
 };
