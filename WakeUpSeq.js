@@ -2,11 +2,15 @@
 
 var lifx = require('lifx');
 var util = require('util');
-var packet = require('packet');
+var packet = require('./packet');
 
 var lx = lifx.init();
 
-var lightLevel = 0;
+var message = packet.getLightState();
+lx.sendToAll(message);
+
+var lightLevel = 0.00;
+var minute = 0.00;
 
 lx.on('bulb', function(b) {
 
@@ -23,9 +27,12 @@ var _counter = function() {
 
 
 	setTimeout(function() {
-		lightLevel += 5;
 
-		console.log(lightLevel);
+		minute++;
+
+		lightLevel = Math.round((Math.pow(1.25,minute)/87)*100);
+
+		console.log(minute,lightLevel);
 		_setLight(lightLevel);
 
 		if (lightLevel != 100) {
